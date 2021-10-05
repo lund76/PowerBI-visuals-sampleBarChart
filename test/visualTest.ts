@@ -1,6 +1,8 @@
 import powerbi from "powerbi-visuals-api";
+import DataView = powerbi.DataView;
 
 import { BarChartBuilder } from "./VisualBuilder";
+import {SampleBarChartDataBuilder} from "./visualData";
 
 import {
     BarChart,
@@ -11,11 +13,15 @@ import {
 
 describe("BarChart", () => {
     let visualBuilder: BarChartBuilder;
+    let visualData: SampleBarChartDataBuilder;
     let dataView: DataView;
-
+ 
     beforeEach(() => {
         visualBuilder = new BarChartBuilder(500, 500);
-    });
+        visualData = new SampleBarChartDataBuilder();
+        dataView = visualData.getDataView();   
+        visualBuilder.update(dataView);        
+    });  
 
     it("root DOM element is created", () => {
         expect(visualBuilder.mainElement).toBeInDOM();
